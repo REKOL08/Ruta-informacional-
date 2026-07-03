@@ -1,74 +1,646 @@
-# 🔓 Ruta Informacional para la Investigación: Ciencia Abierta
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruta Informacional para la Investigación · Ciencia Abierta · Biblioteca Areandina</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f9fc;
+    --surface: #ffffff;
+    --surface2: #eaf4fa;
+    --sky: #1e9fd6;
+    --teal: #0fa988;
+    --oa: #f68212;          /* naranja del candado de Acceso Abierto */
+    --ink: #14324a;
+    --muted: #5b7288;
+    --border: rgba(30,159,214,0.18);
+    --shadow: 0 8px 30px rgba(20,50,74,0.08);
+  }
 
-Guía interactiva de la sesión **"Ruta informacional para la investigación: Ciencia Abierta. ¿Dónde publicar? Datos de investigación, mi huella"**, dirigida a docentes e investigadores de la **Fundación Universitaria del Área Andina (Areandina)**.
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
 
-**🌐 Ver la guía en vivo:** https://rekol08.github.io/ruta-ciencia-abierta/
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
 
-> Reemplaza la URL anterior con la que genere GitHub Pages según el nombre final del repositorio.
+  /* trama sutil de puntos, como mapa */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(rgba(30,159,214,0.10) 1px, transparent 1px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
----
+  .progress-bar {
+    position: fixed; top: 0; left: 0; height: 4px; z-index: 200; width: 0;
+    background: linear-gradient(90deg, var(--sky), var(--teal), var(--oa));
+    transition: width 0.15s linear;
+  }
 
-## 📍 ¿Qué contiene?
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.9rem 2.5rem;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .nav-logo span { color: var(--oa); }
+  .nav-links { display: flex; gap: 1.4rem; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 600; transition: color .2s; }
+  .nav-links a:hover { color: var(--sky); }
+  .nav-pill {
+    background: linear-gradient(135deg, var(--sky), var(--teal));
+    color: #fff; border: none; border-radius: 100px;
+    padding: 0.45rem 1.1rem; font-size: 0.8rem; font-weight: 700;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+  }
 
-La guía es una página web de un solo archivo que recorre tres **estaciones** dentro del marco de la Ciencia Abierta:
+  main { position: relative; z-index: 1; }
 
-| Estación | Tema | Herramientas |
-|---|---|---|
-| 1️⃣ | **¿Dónde publicar?** | DOAJ · Publindex (Colombia) · Scimago (SJR) · Acuerdos transformativos |
-| 2️⃣ | **Datos de investigación** | Papyrus · Principios FAIR |
-| 3️⃣ | **Mi huella** | ORCID · CRIS Areandina (ADAGIO) |
+  section { padding: 6.5rem 2rem 4rem; }
+  .container { max-width: 1080px; margin: 0 auto; }
 
-Además incluye:
+  /* ── HERO ── */
+  #hero { min-height: 92vh; display: flex; align-items: center; text-align: left; }
+  .event-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(246,130,18,0.10); border: 1px solid rgba(246,130,18,0.35);
+    border-radius: 100px; padding: 0.4rem 1rem;
+    font-size: 0.75rem; font-weight: 700; color: var(--oa);
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.6rem;
+    animation: fadeUp .6s ease both;
+  }
+  .event-tag::before { content: '🔓'; font-size: 0.85rem; }
 
-- 🗺️ **Línea de ruta tipo metro** que conecta visualmente las tres estaciones
-- 📱 **Códigos QR** de acceso directo a DOAJ, Publindex, Scimago y registro en ORCID
-- ✅ **Checklist interactivo** de 7 tareas para que cada asistente complete durante o después de la sesión
-- 🔓 Sección introductoria sobre los pilares de la Ciencia Abierta (acceso abierto, datos FAIR, identidad investigativa)
+  .hero-kicker {
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 0.8rem; animation: fadeUp .6s .05s ease both;
+  }
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 6.5vw, 4.6rem);
+    font-weight: 900; line-height: 1.04; letter-spacing: -0.02em;
+    margin-bottom: 1.4rem; animation: fadeUp .6s .1s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    background: linear-gradient(120deg, var(--sky), var(--teal));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 620px;
+    margin-bottom: 2.4rem; animation: fadeUp .6s .18s ease both;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp .6s .26s ease both; }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--sky), var(--teal));
+    color: #fff; border: none; border-radius: 10px;
+    padding: 0.85rem 2rem; font-size: 0.95rem; font-weight: 700;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    box-shadow: 0 6px 20px rgba(30,159,214,0.30);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(30,159,214,0.38); }
+  .btn-ghost {
+    background: #fff; color: var(--ink);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 0.85rem 2rem; font-size: 0.95rem; font-weight: 600;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-ghost:hover { border-color: var(--sky); background: var(--surface2); }
 
-## 🛠️ Tecnología
+  /* mini-ruta decorativa del hero */
+  .hero-route {
+    margin-top: 3.2rem; display: flex; align-items: center; gap: 0;
+    animation: fadeUp .6s .34s ease both; flex-wrap: wrap;
+  }
+  .hr-stop { display: flex; align-items: center; }
+  .hr-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 3px solid var(--sky); background: #fff; flex-shrink: 0;
+  }
+  .hr-stop:nth-child(2) .hr-dot { border-color: var(--teal); }
+  .hr-stop:nth-child(3) .hr-dot { border-color: var(--oa); }
+  .hr-line { width: clamp(40px, 8vw, 110px); height: 3px; background: linear-gradient(90deg, var(--sky), var(--teal)); }
+  .hr-stop:nth-child(2) .hr-line { background: linear-gradient(90deg, var(--teal), var(--oa)); }
+  .hr-label { font-size: 0.75rem; font-weight: 700; color: var(--muted); margin-left: 0.5rem; margin-right: 0.9rem; white-space: nowrap; }
 
-- **HTML + CSS + JavaScript vanilla** — un solo archivo autocontenido, sin build ni dependencias locales
-- [qrcodejs](https://cdnjs.com/libraries/qrcodejs) vía CDN para la generación de códigos QR
-- Tipografías Fraunces + Inter vía Google Fonts
-- Diseño responsivo (escritorio → móvil) y soporte de `prefers-reduced-motion` para accesibilidad
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-## 🚀 Publicar en GitHub Pages
+  /* ── SECCIÓN GENÉRICA ── */
+  .section-label {
+    font-size: 0.75rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 0.7rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif; font-size: clamp(1.7rem, 4vw, 2.6rem);
+    font-weight: 900; letter-spacing: -0.015em; line-height: 1.12; margin-bottom: 1.2rem;
+  }
+  .section-body { color: var(--muted); max-width: 600px; font-size: 0.98rem; }
+  .divider {
+    width: 64px; height: 4px; border-radius: 3px;
+    background: linear-gradient(90deg, var(--sky), var(--oa));
+    margin: 1rem 0 2rem;
+  }
 
-1. Renombra el archivo principal a `index.html` (GitHub Pages lo sirve como página raíz).
-2. Sube `index.html` y este `README.md` a la rama `main` del repositorio.
-3. En el repositorio ve a **Settings → Pages**.
-4. En *Source* selecciona **Deploy from a branch**, rama `main`, carpeta `/ (root)` y guarda.
-5. En 1–2 minutos la guía queda disponible en `https://<usuario>.github.io/<repositorio>/`.
+  /* ── MARCO CIENCIA ABIERTA ── */
+  #marco { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .pilares { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+  .pilar {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
+    padding: 1.5rem; transition: transform .25s, box-shadow .25s;
+  }
+  .pilar:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .pilar-icon { font-size: 1.7rem; margin-bottom: 0.7rem; }
+  .pilar h3 { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .pilar p { font-size: 0.85rem; color: var(--muted); }
 
-Cualquier cambio posterior se publica automáticamente al hacer *push* a `main`.
+  .highlight-box {
+    background: rgba(246,130,18,0.07); border: 1px solid rgba(246,130,18,0.28);
+    border-radius: 12px; padding: 1.1rem 1.3rem; margin-top: 1.8rem; max-width: 640px;
+  }
+  .highlight-box p { font-size: 0.9rem; color: var(--ink); }
+  .highlight-box strong { color: var(--oa); }
 
-## 📂 Estructura del repositorio
+  /* ── LA RUTA (elemento distintivo) ── */
+  #ruta { }
+  .route-wrap { position: relative; margin-top: 3rem; }
+  /* línea vertical de metro */
+  .route-wrap::before {
+    content: '';
+    position: absolute; left: 27px; top: 10px; bottom: 10px; width: 5px; border-radius: 3px;
+    background: linear-gradient(180deg, var(--sky) 0%, var(--teal) 50%, var(--oa) 100%);
+  }
+  .station { position: relative; padding-left: 84px; margin-bottom: 4rem; }
+  .station:last-child { margin-bottom: 0; }
+  .station-marker {
+    position: absolute; left: 8px; top: 0;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #fff; display: flex; align-items: center; justify-content: center;
+    font-size: 1.25rem; font-weight: 800;
+    box-shadow: var(--shadow);
+    border: 4px solid var(--sky);
+  }
+  .station:nth-child(2) .station-marker { border-color: var(--teal); }
+  .station:nth-child(3) .station-marker { border-color: var(--oa); }
 
-```
-.
-├── index.html    # Guía interactiva completa (autocontenida)
-└── README.md
-```
+  .station-eyebrow {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--sky); margin-bottom: 0.3rem;
+  }
+  .station:nth-child(2) .station-eyebrow { color: var(--teal); }
+  .station:nth-child(3) .station-eyebrow { color: var(--oa); }
+  .station-title { font-family: 'Fraunces', serif; font-size: clamp(1.4rem, 3vw, 2rem); font-weight: 900; margin-bottom: 0.5rem; }
+  .station-intro { color: var(--muted); font-size: 0.92rem; max-width: 620px; margin-bottom: 1.6rem; }
 
-## ✏️ Personalización rápida
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+  .tool-card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 1.4rem; display: flex; flex-direction: column; gap: 0.6rem;
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .tool-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: rgba(30,159,214,0.45); }
+  .tool-head { display: flex; align-items: center; gap: 0.7rem; }
+  .tool-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 1.15rem;
+    background: linear-gradient(135deg, var(--sky), var(--teal)); color: #fff;
+  }
+  .tool-card.oa-card .tool-icon { background: linear-gradient(135deg, var(--oa), #ffb25e); }
+  .tool-name { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; }
+  .tool-scope {
+    display: inline-block; align-self: flex-start;
+    background: var(--surface2); border: 1px solid var(--border); border-radius: 100px;
+    padding: 0.2rem 0.7rem; font-size: 0.7rem; font-weight: 700; color: var(--sky);
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .tool-desc { font-size: 0.85rem; color: var(--muted); flex-grow: 1; }
+  .tool-tip {
+    background: rgba(15,169,136,0.07); border-left: 3px solid var(--teal);
+    padding: 0.5rem 0.8rem; border-radius: 0 8px 8px 0;
+    font-size: 0.78rem; color: var(--ink);
+  }
+  .tool-tip strong { color: var(--teal); }
 
-Todo está en `index.html`:
+  .tool-qr {
+    margin-top: 0.4rem; display: flex; align-items: center; gap: 0.9rem;
+    background: var(--surface2); border: 1px dashed var(--border); border-radius: 12px;
+    padding: 0.7rem 0.9rem;
+  }
+  .tool-qr canvas, .tool-qr img { border-radius: 6px; border: 3px solid #fff; display: block; }
+  .tool-qr-meta { min-width: 0; }
+  .tool-qr-label { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: var(--teal); }
+  .tool-qr-url { font-size: 0.72rem; color: var(--muted); font-family: 'Courier New', monospace; word-break: break-all; }
 
-- **Herramientas y descripciones** → busca las tarjetas `.tool-card` dentro de la sección `#ruta`.
-- **Checklist** → edita el arreglo `checklist` al inicio del `<script>` final.
-- **QRs** → edita el arreglo `qrs` en el mismo script (id del contenedor + URL).
-- **Paleta de colores** → variables CSS en `:root` (`--sky`, `--teal`, `--oa`, etc.).
+  /* módulos ADAGIO */
+  .modulos { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.3rem; }
+  .modulo-chip {
+    background: rgba(246,130,18,0.09); border: 1px solid rgba(246,130,18,0.3);
+    color: var(--oa); border-radius: 100px; padding: 0.25rem 0.8rem;
+    font-size: 0.72rem; font-weight: 700;
+  }
 
-## 📅 Contexto
+  /* ── CHECKLIST ── */
+  #checklist { background: var(--surface); border-top: 1px solid var(--border); }
+  .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-top: 2.4rem; }
+  .check-card {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 14px;
+    padding: 1.2rem; cursor: pointer; user-select: none;
+    display: flex; gap: 0.8rem; align-items: flex-start;
+    transition: border-color .2s, background .2s;
+  }
+  .check-card:hover { border-color: var(--teal); }
+  .check-box {
+    width: 22px; height: 22px; border-radius: 6px; flex-shrink: 0; margin-top: 2px;
+    border: 2px solid var(--sky); background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; color: #fff; transition: background .2s, border-color .2s;
+  }
+  .check-card.done { background: rgba(15,169,136,0.06); border-color: var(--teal); }
+  .check-card.done .check-box { background: var(--teal); border-color: var(--teal); }
+  .check-card.done .check-box::after { content: '✓'; font-weight: 800; }
+  .check-card.done .check-text h4 { text-decoration: line-through; color: var(--muted); }
+  .check-text h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .check-text p { font-size: 0.78rem; color: var(--muted); }
+  .check-progress {
+    margin-top: 1.8rem; font-size: 0.9rem; font-weight: 700; color: var(--teal);
+  }
 
-Sesión desarrollada por la **Biblioteca de Areandina** como parte de las intervenciones de formación para docentes e investigadores en el marco de la Ciencia Abierta.
+  footer {
+    background: var(--ink); color: rgba(255,255,255,0.85);
+    padding: 2.2rem 2.5rem; text-align: center; font-size: 0.82rem;
+    position: relative; z-index: 1;
+  }
+  footer a { color: #7fd4ff; text-decoration: none; }
+  footer strong { color: #fff; }
 
-Proyecto hermano: guía del taller **Aulas Inteligentes · Creación de Gems con Gemini**.
+  @media (max-width: 640px) {
+    nav { padding: 0.75rem 1.2rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.2rem 3rem; }
+    .station { padding-left: 64px; }
+    .route-wrap::before { left: 19px; }
+    .station-marker { left: 0; width: 40px; height: 40px; }
+  }
 
-## 📬 Contacto
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
 
-**Bibliotecas Areandina** · alabrada3@areandina.edu.co
+<div class="progress-bar" id="progress"></div>
 
----
+<nav>
+  <div class="nav-logo">Ruta<span>·</span>Informacional</div>
+  <div class="nav-links">
+    <a href="#marco">Ciencia Abierta</a>
+    <a href="#ruta">La ruta</a>
+    <a href="#checklist">Checklist</a>
+  </div>
+  <button class="nav-pill" onclick="document.getElementById('ruta').scrollIntoView()">🗺️ Iniciar la ruta</button>
+</nav>
 
-*Fundación Universitaria del Área Andina · 2026*
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="container">
+    <div class="event-tag">Biblioteca Areandina · Sesión para investigadores</div>
+    <div class="hero-kicker">Ruta informacional para la investigación</div>
+    <h1 class="hero-title">Ciencia Abierta:<br><em>¿dónde publicar?</em><br>Datos de investigación<br>y mi huella</h1>
+    <p class="hero-sub">
+      Un recorrido guiado por las herramientas que todo investigador de Areandina debería
+      conocer para publicar mejor, gestionar sus datos y hacer visible su producción científica —
+      todo en el marco de la Ciencia Abierta.
+    </p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.getElementById('marco').scrollIntoView()">Comenzar →</button>
+      <button class="btn-ghost" onclick="document.getElementById('ruta').scrollIntoView()">Ver las 3 estaciones</button>
+    </div>
+    <div class="hero-route" aria-hidden="true">
+      <div class="hr-stop"><div class="hr-dot"></div><div class="hr-label">¿Dónde publicar?</div><div class="hr-line"></div></div>
+      <div class="hr-stop"><div class="hr-dot"></div><div class="hr-label">Datos de investigación</div><div class="hr-line"></div></div>
+      <div class="hr-stop"><div class="hr-dot"></div><div class="hr-label">Mi huella</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARCO CIENCIA ABIERTA -->
+<section id="marco">
+  <div class="container">
+    <div class="section-label">El marco de todo el recorrido</div>
+    <h2 class="section-title">¿Qué es la Ciencia Abierta?</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      La Ciencia Abierta busca que el conocimiento científico sea <strong>accesible, transparente y reutilizable</strong>
+      para todos: publicaciones en acceso abierto, datos de investigación disponibles y una identidad
+      investigativa visible y verificable. Cada estación de esta ruta responde a uno de sus pilares.
+    </p>
+    <div class="pilares">
+      <div class="pilar">
+        <div class="pilar-icon">🔓</div>
+        <h3>Acceso abierto</h3>
+        <p>Publicar en revistas y repositorios donde cualquier persona pueda leer los resultados sin barreras de pago.</p>
+      </div>
+      <div class="pilar">
+        <div class="pilar-icon">📊</div>
+        <h3>Datos abiertos (FAIR)</h3>
+        <p>Datos de investigación Findable, Accessible, Interoperable y Reusable: localizables, accesibles, interoperables y reutilizables.</p>
+      </div>
+      <div class="pilar">
+        <div class="pilar-icon">🪪</div>
+        <h3>Identidad y huella</h3>
+        <p>Una identidad de investigador única y verificable que conecta toda tu producción científica.</p>
+      </div>
+    </div>
+    <div class="highlight-box">
+      <p>💡 <strong>Clave de la sesión:</strong> no son herramientas sueltas — son estaciones de una misma ruta. Elegir dónde publicar, gestionar tus datos y cuidar tu huella hacen parte del mismo ciclo de investigación abierta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LA RUTA -->
+<section id="ruta">
+  <div class="container">
+    <div class="section-label">El recorrido</div>
+    <h2 class="section-title">Las 3 estaciones de la ruta</h2>
+    <div class="divider"></div>
+
+    <div class="route-wrap">
+
+      <!-- ESTACIÓN 1 -->
+      <div class="station">
+        <div class="station-marker">1</div>
+        <div class="station-eyebrow">Estación 01 · Publicación</div>
+        <h3 class="station-title">¿Dónde publicar?</h3>
+        <p class="station-intro">
+          Antes de enviar un artículo, verifica la revista: que sea legítima, indexada y —idealmente— de acceso abierto.
+          Estas tres fuentes te permiten validar cualquier revista en minutos.
+        </p>
+        <div class="tools-grid">
+
+          <div class="tool-card oa-card">
+            <div class="tool-head">
+              <div class="tool-icon">🔓</div>
+              <div class="tool-name">DOAJ</div>
+            </div>
+            <span class="tool-scope">Internacional</span>
+            <p class="tool-desc"><strong>Directorio de Revistas de Acceso Abierto.</strong> Lista revistas open access que cumplen criterios de calidad editorial y transparencia. Si la revista está en DOAJ, es acceso abierto legítimo.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> confirmar que una revista de acceso abierto no es depredadora.</div>
+            <div class="tool-qr">
+              <div id="qr-doaj"></div>
+              <div class="tool-qr-meta">
+                <div class="tool-qr-label">📱 Escanea y explora</div>
+                <div class="tool-qr-url">doaj.org</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-head">
+              <div class="tool-icon">🇨🇴</div>
+              <div class="tool-name">Publindex</div>
+            </div>
+            <span class="tool-scope">Solo Colombia</span>
+            <p class="tool-desc"><strong>Índice de Minciencias.</strong> Clasifica las revistas científicas colombianas (A1, A2, B, C). Es la referencia oficial para saber cómo puntúa una revista nacional en tu producción académica.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> verificar la categoría de revistas colombianas antes de someter tu artículo.</div>
+            <div class="tool-qr">
+              <div id="qr-publindex"></div>
+              <div class="tool-qr-meta">
+                <div class="tool-qr-label">📱 Escanea y explora</div>
+                <div class="tool-qr-url">scienti.minciencias.gov.co/publindex</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-head">
+              <div class="tool-icon">📈</div>
+              <div class="tool-name">Scimago (SJR)</div>
+            </div>
+            <span class="tool-scope">Internacional</span>
+            <p class="tool-desc"><strong>Verificación y ranking de revistas.</strong> Muestra el cuartil (Q1–Q4), el índice SJR y las métricas de cualquier revista indexada en Scopus. Ideal para comparar revistas de tu área.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> conocer el cuartil de la revista y comparar opciones antes de publicar.</div>
+            <div class="tool-qr">
+              <div id="qr-scimago"></div>
+              <div class="tool-qr-meta">
+                <div class="tool-qr-label">📱 Escanea y explora</div>
+                <div class="tool-qr-url">scimagojr.com</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-card oa-card">
+            <div class="tool-head">
+              <div class="tool-icon">🤝</div>
+              <div class="tool-name">Acuerdos transformativos</div>
+            </div>
+            <span class="tool-scope">Consorcios · Editoriales</span>
+            <p class="tool-desc">Convenios entre instituciones y editoriales que permiten <strong>publicar en acceso abierto sin pagar APC</strong> (cargos por procesamiento de artículo) o con descuentos, usando la afiliación institucional.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> preguntar en Biblioteca qué acuerdos cubren tu revista objetivo antes de pagar APC de tu bolsillo.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ESTACIÓN 2 -->
+      <div class="station">
+        <div class="station-marker">2</div>
+        <div class="station-eyebrow">Estación 02 · Datos</div>
+        <h3 class="station-title">Datos de investigación</h3>
+        <p class="station-intro">
+          Los datos también se publican, se citan y se reutilizan. Gestionarlos bien desde el inicio del
+          proyecto es parte esencial de la Ciencia Abierta.
+        </p>
+        <div class="tools-grid">
+
+          <div class="tool-card">
+            <div class="tool-head">
+              <div class="tool-icon">📜</div>
+              <div class="tool-name">Papyrus</div>
+            </div>
+            <span class="tool-scope">Herramienta institucional</span>
+            <p class="tool-desc">Plataforma de apoyo a la investigación disponible a través de la Biblioteca para la <strong>gestión y análisis de información de investigación</strong>. En la sesión veremos en vivo cómo acceder y sus casos de uso.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> organizar y trabajar la información de tu proyecto desde una sola plataforma con acceso institucional.</div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-head">
+              <div class="tool-icon">🧭</div>
+              <div class="tool-name">Principios FAIR</div>
+            </div>
+            <span class="tool-scope">Buenas prácticas</span>
+            <p class="tool-desc">Antes de depositar datos, verifica que sean <strong>F</strong>indables (con identificador y metadatos), <strong>A</strong>ccesibles, <strong>I</strong>nteroperables (formatos abiertos) y <strong>R</strong>eutilizables (con licencia clara).</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> preparar tus datasets con nombres, formatos y licencias que otros puedan citar y reutilizar.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ESTACIÓN 3 -->
+      <div class="station">
+        <div class="station-marker">3</div>
+        <div class="station-eyebrow">Estación 03 · Identidad</div>
+        <h3 class="station-title">Mi huella como investigador</h3>
+        <p class="station-intro">
+          Tu producción científica debe encontrarte a ti — no al revés. Un identificador único y el sistema
+          de información institucional conectan todo lo que produces.
+        </p>
+        <div class="tools-grid">
+
+          <div class="tool-card">
+            <div class="tool-head">
+              <div class="tool-icon">🪪</div>
+              <div class="tool-name">ORCID</div>
+            </div>
+            <span class="tool-scope">Identificador único · Gratuito</span>
+            <p class="tool-desc"><strong>Tu cédula científica internacional.</strong> Un código de 16 dígitos que te identifica de forma única y permanente, evita confusiones de nombre y conecta todos tus artículos, datos y proyectos.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> crear tu perfil hoy mismo (toma 5 minutos) y usarlo en toda sumisión de artículos y convocatorias.</div>
+            <div class="tool-qr">
+              <div id="qr-orcid"></div>
+              <div class="tool-qr-meta">
+                <div class="tool-qr-label">📱 Crea tu ORCID</div>
+                <div class="tool-qr-url">orcid.org/register</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tool-card oa-card">
+            <div class="tool-head">
+              <div class="tool-icon">🏛️</div>
+              <div class="tool-name">CRIS Areandina · ADAGIO</div>
+            </div>
+            <span class="tool-scope">Sistema institucional</span>
+            <p class="tool-desc">El <strong>sistema de información de investigación (CRIS)</strong> de Areandina. Centraliza la producción científica institucional y ofrece módulos que acompañan al investigador en todo el ciclo.</p>
+            <div class="modulos">
+              <span class="modulo-chip">🤖 Asistentes</span>
+              <span class="modulo-chip">📌 ¿Dónde publicar?</span>
+              <span class="modulo-chip">🔓 Ciencia Abierta</span>
+            </div>
+            <div class="tool-tip"><strong>Úsalo para:</strong> mantener tu producción registrada y aprovechar sus asistentes para elegir revista y cumplir políticas de Ciencia Abierta.</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section id="checklist">
+  <div class="container">
+    <div class="section-label">Para llevarte de la sesión</div>
+    <h2 class="section-title">Checklist del investigador abierto</h2>
+    <div class="divider"></div>
+    <p class="section-body">Marca cada casilla a medida que la completes — hoy mismo o durante la semana.</p>
+
+    <div class="check-grid" id="checkGrid"></div>
+    <div class="check-progress" id="checkProgress">0 de 7 completadas</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p><strong>Ruta Informacional para la Investigación · Ciencia Abierta</strong> · Biblioteca Areandina · 2026</p>
+  <p style="margin-top:0.4rem;">Contacto: <a href="mailto:alabrada3@areandina.edu.co">alabrada3@areandina.edu.co</a> · Recursos disponibles en <a href="#">GitHub · REKOL08</a></p>
+</footer>
+
+<script>
+// ─── QRs de las herramientas ───
+window.addEventListener('load', function () {
+  const qrs = [
+    { id: 'qr-doaj', url: 'https://doaj.org' },
+    { id: 'qr-publindex', url: 'https://scienti.minciencias.gov.co/publindex/' },
+    { id: 'qr-scimago', url: 'https://www.scimagojr.com' },
+    { id: 'qr-orcid', url: 'https://orcid.org/register' }
+  ];
+  qrs.forEach(({ id, url }) => {
+    const el = document.getElementById(id);
+    if (el && typeof QRCode !== 'undefined') {
+      new QRCode(el, {
+        text: url,
+        width: 96,
+        height: 96,
+        colorDark: '#14324a',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+  });
+});
+
+// ─── Checklist interactivo ───
+const checklist = [
+  { t: 'Verifica una revista en DOAJ', d: 'Busca una revista de tu área y confirma que está listada.' },
+  { t: 'Consulta la categoría en Publindex', d: 'Revisa la clasificación de una revista colombiana de tu campo.' },
+  { t: 'Busca el cuartil en Scimago', d: 'Identifica el Q (Q1–Q4) de tu revista objetivo.' },
+  { t: 'Pregunta por acuerdos transformativos', d: 'Consulta en Biblioteca si tu revista objetivo tiene APC cubierto.' },
+  { t: 'Explora Papyrus', d: 'Ingresa con tu cuenta institucional y recorre la plataforma.' },
+  { t: 'Crea o actualiza tu ORCID', d: 'Registra tu perfil y agrega tu afiliación a Areandina.' },
+  { t: 'Ingresa al CRIS ADAGIO', d: 'Revisa tu producción registrada y explora los módulos de Ciencia Abierta.' }
+];
+
+const grid = document.getElementById('checkGrid');
+let doneCount = 0;
+
+checklist.forEach((item, i) => {
+  const card = document.createElement('div');
+  card.className = 'check-card';
+  card.setAttribute('role', 'checkbox');
+  card.setAttribute('aria-checked', 'false');
+  card.setAttribute('tabindex', '0');
+  card.innerHTML = `
+    <div class="check-box"></div>
+    <div class="check-text">
+      <h4>${item.t}</h4>
+      <p>${item.d}</p>
+    </div>
+  `;
+  const toggle = () => {
+    card.classList.toggle('done');
+    const isDone = card.classList.contains('done');
+    card.setAttribute('aria-checked', String(isDone));
+    doneCount += isDone ? 1 : -1;
+    const progress = document.getElementById('checkProgress');
+    progress.textContent = doneCount === checklist.length
+      ? '🎉 ¡Ruta completada! Ya eres un investigador abierto.'
+      : `${doneCount} de ${checklist.length} completadas`;
+  };
+  card.addEventListener('click', toggle);
+  card.addEventListener('keydown', e => {
+    if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(); }
+  });
+  grid.appendChild(card);
+});
+
+// ─── Barra de progreso de scroll ───
+window.addEventListener('scroll', () => {
+  const docHeight = document.body.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+  document.getElementById('progress').style.width = pct + '%';
+});
+</script>
+</body>
+</html>
