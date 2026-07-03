@@ -283,6 +283,38 @@
 
   /* ── CINAR ── */
   #cinar { background: linear-gradient(180deg, var(--surface2), var(--bg)); border-top: 1px solid var(--border); }
+
+  /* layout superior: intro + tarjeta QR de acceso */
+  .cinar-top {
+    display: grid; grid-template-columns: 1.4fr 1fr;
+    gap: 2.5rem; align-items: start;
+  }
+  @media (max-width: 760px) { .cinar-top { grid-template-columns: 1fr; } }
+
+  .cinar-access {
+    background: #fff; border: 1.5px solid var(--border); border-radius: 20px;
+    padding: 1.6rem 1.4rem; text-align: center;
+    box-shadow: var(--shadow); position: relative; overflow: hidden;
+  }
+  .cinar-access::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px;
+    background: linear-gradient(90deg, var(--sky), var(--teal), var(--oa));
+  }
+  .cinar-access-label {
+    font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 0.9rem;
+  }
+  .cinar-access #qr-cinar { display: inline-block; }
+  .cinar-access canvas, .cinar-access img {
+    border-radius: 10px; border: 4px solid #fff;
+    box-shadow: 0 4px 16px rgba(20,50,74,0.12); display: block;
+  }
+  .cinar-access-url {
+    font-size: 0.7rem; color: var(--muted); font-family: 'Courier New', monospace;
+    word-break: break-all; margin-top: 0.8rem; max-width: 240px; margin-left: auto; margin-right: auto;
+  }
+  .cinar-access .btn-primary { margin-top: 1rem; display: inline-block; text-decoration: none; font-size: 0.88rem; padding: 0.7rem 1.6rem; }
+
   .cinar-ejes { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 1.6rem 0 2.4rem; }
   .eje-chip {
     background: #fff; border: 1px solid var(--border); border-radius: 100px;
@@ -659,18 +691,29 @@
     <div class="section-label">Todo en un solo lugar</div>
     <h2 class="section-title">CINAR — Centro de Información<br>para la Investigación en Areandina</h2>
     <div class="divider"></div>
-    <p class="section-body">
-      Toda esta ruta vive en un solo punto de partida: <strong>CINAR</strong>, el portal de la Biblioteca que reúne
-      los sistemas, guías, plataformas y asesores de apoyo a la investigación institucional. Si olvidas por
-      dónde empezar, empieza por CINAR.
-    </p>
 
-    <div class="cinar-ejes">
-      <span class="eje-chip">📊 Gestión de datos</span>
-      <span class="eje-chip">🪪 Perfil del investigador</span>
+    <div class="cinar-top">
+      <div>
+        <p class="section-body">
+          Toda esta ruta vive en un solo punto de partida: <strong>CINAR</strong>, el portal de la Biblioteca que reúne
+          los sistemas, guías, plataformas y asesores de apoyo a la investigación institucional. Si olvidas por
+          dónde empezar, empieza por CINAR.
+        </p>
+        <div class="cinar-ejes">
+          <span class="eje-chip">📊 Gestión de datos</span>
+          <span class="eje-chip">🪪 Perfil del investigador</span>
       <span class="eje-chip">📰 Gestión editorial</span>
       <span class="eje-chip">📡 Visibilidad institucional</span>
       <span class="eje-chip">🏛️ Repositorio institucional · DigITK</span>
+        </div>
+      </div>
+
+      <div class="cinar-access">
+        <div class="cinar-access-label">📱 Escanea e ingresa a CINAR</div>
+        <div id="qr-cinar"></div>
+        <div class="cinar-access-url">bidig.areandina.edu.co → CINAR</div>
+        <a class="btn-primary" href="https://bidig.areandina.edu.co/main-home/cinar-rework-copy-nueva-version/" target="_blank" rel="noopener">Ir a CINAR →</a>
+      </div>
     </div>
 
     <div class="section-label" style="margin-top:1rem;">Equipo especializado</div>
@@ -730,15 +773,16 @@ window.addEventListener('load', function () {
     { id: 'qr-publindex', url: 'https://scienti.minciencias.gov.co/publindex/' },
     { id: 'qr-scimago', url: 'https://www.scimagojr.com' },
     { id: 'qr-orcid', url: 'https://orcid.org/register' },
-    { id: 'qr-gem-publicar', url: 'https://gemini.google.com/gem/1KYxqdq-Dmufav5T_CwIzvcfjYllPZonA?usp=sharing' }
+    { id: 'qr-gem-publicar', url: 'https://gemini.google.com/gem/1KYxqdq-Dmufav5T_CwIzvcfjYllPZonA?usp=sharing' },
+    { id: 'qr-cinar', url: 'https://bidig.areandina.edu.co/main-home/cinar-rework-copy-nueva-version/', size: 168 }
   ];
-  qrs.forEach(({ id, url }) => {
+  qrs.forEach(({ id, url, size }) => {
     const el = document.getElementById(id);
     if (el && typeof QRCode !== 'undefined') {
       new QRCode(el, {
         text: url,
-        width: 96,
-        height: 96,
+        width: size || 96,
+        height: size || 96,
         colorDark: '#14324a',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.M
