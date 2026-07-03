@@ -257,6 +257,60 @@
     font-size: 0.72rem; font-weight: 700;
   }
 
+  /* pasos numerados dentro de tarjetas (Atlas.ti) */
+  .tool-steps { list-style: none; counter-reset: paso; display: flex; flex-direction: column; gap: 0.45rem; margin: 0.2rem 0; }
+  .tool-steps li {
+    counter-increment: paso; position: relative;
+    padding-left: 2rem; font-size: 0.8rem; color: var(--muted); line-height: 1.5;
+  }
+  .tool-steps li::before {
+    content: counter(paso);
+    position: absolute; left: 0; top: 1px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--surface2); border: 1.5px solid var(--sky);
+    color: var(--sky); font-size: 0.68rem; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tool-steps li strong { color: var(--ink); }
+
+  /* tarjeta destacada de IA */
+  .tool-card.ia-card {
+    border: 1.5px solid rgba(124,92,252,0.35);
+    background: linear-gradient(160deg, #fff 60%, rgba(124,92,252,0.05));
+  }
+  .tool-card.ia-card .tool-icon { background: linear-gradient(135deg, #7c5cfc, var(--sky)); }
+  .tool-card.ia-card .tool-scope { color: #7c5cfc; border-color: rgba(124,92,252,0.3); background: rgba(124,92,252,0.07); }
+
+  /* ── CINAR ── */
+  #cinar { background: linear-gradient(180deg, var(--surface2), var(--bg)); border-top: 1px solid var(--border); }
+  .cinar-ejes { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 1.6rem 0 2.4rem; }
+  .eje-chip {
+    background: #fff; border: 1px solid var(--border); border-radius: 100px;
+    padding: 0.5rem 1.1rem; font-size: 0.82rem; font-weight: 700; color: var(--ink);
+    box-shadow: 0 2px 8px rgba(20,50,74,0.05);
+  }
+  .asesores { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.1rem; margin-top: 1.4rem; }
+  .asesor {
+    background: #fff; border: 1px solid var(--border); border-radius: 16px;
+    padding: 1.3rem; text-align: center;
+    transition: transform .25s, box-shadow .25s;
+  }
+  .asesor:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+  .asesor-avatar {
+    width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 0.7rem;
+    background: linear-gradient(135deg, var(--sky), var(--teal));
+    color: #fff; font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.3rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .asesor h4 { font-size: 0.92rem; font-weight: 700; }
+  .asesor .sede { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+  .asesor .rol {
+    display: inline-block; margin-top: 0.6rem;
+    background: rgba(15,169,136,0.08); border: 1px solid rgba(15,169,136,0.25);
+    color: var(--teal); border-radius: 100px; padding: 0.2rem 0.7rem;
+    font-size: 0.7rem; font-weight: 700;
+  }
+
   /* ── CHECKLIST ── */
   #checklist { background: var(--surface); border-top: 1px solid var(--border); }
   .check-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; margin-top: 2.4rem; }
@@ -315,6 +369,7 @@
   <div class="nav-links">
     <a href="#marco">Ciencia Abierta</a>
     <a href="#ruta">La ruta</a>
+    <a href="#cinar">CINAR</a>
     <a href="#checklist">Checklist</a>
   </div>
   <button class="nav-pill" onclick="document.getElementById('ruta').scrollIntoView()">🗺️ Iniciar la ruta</button>
@@ -455,9 +510,35 @@
               <div class="tool-icon">🤝</div>
               <div class="tool-name">Acuerdos transformativos</div>
             </div>
-            <span class="tool-scope">Consorcios · Editoriales</span>
-            <p class="tool-desc">Convenios entre instituciones y editoriales que permiten <strong>publicar en acceso abierto sin pagar APC</strong> (cargos por procesamiento de artículo) o con descuentos, usando la afiliación institucional.</p>
-            <div class="tool-tip"><strong>Úsalo para:</strong> preguntar en Biblioteca qué acuerdos cubren tu revista objetivo antes de pagar APC de tu bolsillo.</div>
+            <span class="tool-scope">Consorcio Colombia</span>
+            <p class="tool-desc">Gracias al <strong>Consorcio Colombia</strong>, los investigadores de Areandina pueden <strong>publicar en acceso abierto sin asumir el APC</strong> (cargo por procesamiento de artículo) en revistas de editoriales cubiertas.</p>
+            <div class="modulos">
+              <span class="modulo-chip">PLOS</span>
+              <span class="modulo-chip">Cambridge UP</span>
+              <span class="modulo-chip">Elsevier</span>
+              <span class="modulo-chip">Springer</span>
+              <span class="modulo-chip">Taylor &amp; Francis</span>
+              <span class="modulo-chip">SAGE</span>
+              <span class="modulo-chip">Oxford UP</span>
+            </div>
+            <div class="tool-tip"><strong>Úsalo para:</strong> verificar si tu revista objetivo está cubierta antes de pagar APC de tu bolsillo.</div>
+          </div>
+
+          <div class="tool-card ia-card">
+            <div class="tool-head">
+              <div class="tool-icon">✨</div>
+              <div class="tool-name">Asistente IA · ¿Dónde Publicar?</div>
+            </div>
+            <span class="tool-scope">IA activa · Gemini</span>
+            <p class="tool-desc">Un <strong>Gem de Gemini creado por la Biblioteca</strong> que te orienta en los Acuerdos Transformativos: identifica si tu revista está cubierta por el Consorcio Colombia, te explica el proceso en <strong>5 fases</strong> y te acompaña hasta publicar sin asumir el APC.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> consultar en lenguaje natural, 24/7, si puedes publicar gratis en acceso abierto según tu área y revista.</div>
+            <div class="tool-qr">
+              <div id="qr-gem-publicar"></div>
+              <div class="tool-qr-meta">
+                <div class="tool-qr-label">📱 Chatea con el asistente</div>
+                <div class="tool-qr-url">gemini.google.com/gem → ¿Dónde Publicar?</div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -476,12 +557,22 @@
 
           <div class="tool-card">
             <div class="tool-head">
+              <div class="tool-icon">📋</div>
+              <div class="tool-name">Plan de Gestión de Datos (PGD)</div>
+            </div>
+            <span class="tool-scope">Documento base del proyecto</span>
+            <p class="tool-desc">El PGD organiza tus datos <strong>de principio a fin</strong> en 6 pilares: identificación del equipo (con ORCID), clasificación de los datos (observacionales, experimentales, derivados), formatos técnicos (Excel/CSV, Python/R, multimedia), estándares de metadatos, difusión en repositorio y propiedad intelectual.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> asegurar desde el inicio del proyecto que tus datos serán organizados, recuperables y preservables.</div>
+          </div>
+
+          <div class="tool-card oa-card">
+            <div class="tool-head">
               <div class="tool-icon">📜</div>
               <div class="tool-name">Papyrus</div>
             </div>
-            <span class="tool-scope">Herramienta institucional</span>
-            <p class="tool-desc">Plataforma de apoyo a la investigación disponible a través de la Biblioteca para la <strong>gestión y análisis de información de investigación</strong>. En la sesión veremos en vivo cómo acceder y sus casos de uso.</p>
-            <div class="tool-tip"><strong>Úsalo para:</strong> organizar y trabajar la información de tu proyecto desde una sola plataforma con acceso institucional.</div>
+            <span class="tool-scope">Repositorio institucional de datos</span>
+            <p class="tool-desc">El <strong>repositorio institucional de datos de investigación</strong> de Areandina. El depósito en Papyrus asegura el acceso abierto y la preservación a largo plazo, usando el esquema de metadatos <strong>DataCite</strong> para facilitar la localización y citación, y licencias <strong>Creative Commons (CC BY-NC-SA)</strong> para definir permisos de reutilización.</p>
+            <div class="tool-tip"><strong>Úsalo para:</strong> depositar los datasets de tu proyecto con metadatos completos y licencia clara — es el destino final de tu PGD.</div>
           </div>
 
           <div class="tool-card">
@@ -492,6 +583,21 @@
             <span class="tool-scope">Buenas prácticas</span>
             <p class="tool-desc">Antes de depositar datos, verifica que sean <strong>F</strong>indables (con identificador y metadatos), <strong>A</strong>ccesibles, <strong>I</strong>nteroperables (formatos abiertos) y <strong>R</strong>eutilizables (con licencia clara).</p>
             <div class="tool-tip"><strong>Úsalo para:</strong> preparar tus datasets con nombres, formatos y licencias que otros puedan citar y reutilizar.</div>
+          </div>
+
+          <div class="tool-card">
+            <div class="tool-head">
+              <div class="tool-icon">🔬</div>
+              <div class="tool-name">Atlas.ti · Licencia temporal</div>
+            </div>
+            <span class="tool-scope">Análisis cualitativo · 15 días</span>
+            <p class="tool-desc">Software de <strong>análisis cualitativo de datos</strong> disponible mediante licencia temporal de 15 días gestionada por la Biblioteca:</p>
+            <ol class="tool-steps">
+              <li><strong>Regístrate</strong> en atlasti.com usando obligatoriamente tu <strong>correo institucional</strong>.</li>
+              <li><strong>Descarga</strong> el software desde "Mis invitaciones" y escribe a <strong>bibliotecabogota@areandina.edu.co</strong> informando tu registro.</li>
+              <li>La Biblioteca <strong>valida tus datos y envía el código</strong> de activación de la licencia de 15 días.</li>
+            </ol>
+            <div class="tool-tip"><strong>Si expira:</strong> puedes solicitar una reactivación. Para asesoría directa contacta a Luis Fernández, Alejandro Labrada o William Saboya, o reserva una sesión con el formulario oficial de la Biblioteca.</div>
           </div>
 
         </div>
@@ -547,6 +653,55 @@
   </div>
 </section>
 
+<!-- CINAR -->
+<section id="cinar">
+  <div class="container">
+    <div class="section-label">Todo en un solo lugar</div>
+    <h2 class="section-title">CINAR — Centro de Información<br>para la Investigación en Areandina</h2>
+    <div class="divider"></div>
+    <p class="section-body">
+      Toda esta ruta vive en un solo punto de partida: <strong>CINAR</strong>, el portal de la Biblioteca que reúne
+      los sistemas, guías, plataformas y asesores de apoyo a la investigación institucional. Si olvidas por
+      dónde empezar, empieza por CINAR.
+    </p>
+
+    <div class="cinar-ejes">
+      <span class="eje-chip">📊 Gestión de datos</span>
+      <span class="eje-chip">🪪 Perfil del investigador</span>
+      <span class="eje-chip">📰 Gestión editorial</span>
+      <span class="eje-chip">📡 Visibilidad institucional</span>
+      <span class="eje-chip">🏛️ Repositorio institucional · DigITK</span>
+    </div>
+
+    <div class="section-label" style="margin-top:1rem;">Equipo especializado</div>
+    <p class="section-body" style="font-size:0.9rem;">Asesores CINAR por sede — tu primer contacto para cualquier estación de la ruta:</p>
+    <div class="asesores">
+      <div class="asesor">
+        <div class="asesor-avatar">WS</div>
+        <h4>William Danilo Saboya</h4>
+        <div class="sede">Sede Bogotá</div>
+        <span class="rol">Asesor CINAR</span>
+      </div>
+      <div class="asesor">
+        <div class="asesor-avatar">AL</div>
+        <h4>Alejandro Labrada</h4>
+        <div class="sede">Seccional Pereira</div>
+        <span class="rol">Asesor CINAR</span>
+      </div>
+      <div class="asesor">
+        <div class="asesor-avatar">LF</div>
+        <h4>Luis Rafael Fernández</h4>
+        <div class="sede">Sede Valledupar</div>
+        <span class="rol">Asesor CINAR</span>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p>📌 <strong>El conocimiento que se comparte, trasciende y transforma.</strong> Desde CINAR también accedes al Asistente IA ¿Dónde Publicar?, al Consorcio Colombia, a las plataformas de métricas (Scopus, SCImago, OpenCitations) y al repositorio DigITK.</p>
+    </div>
+  </div>
+</section>
+
 <!-- CHECKLIST -->
 <section id="checklist">
   <div class="container">
@@ -563,8 +718,8 @@
 </main>
 
 <footer>
-  <p><strong>Ruta Informacional para la Investigación · Ciencia Abierta</strong> · Biblioteca Areandina · 2026</p>
-  <p style="margin-top:0.4rem;">Contacto: <a href="mailto:alabrada3@areandina.edu.co">alabrada3@areandina.edu.co</a> · Recursos disponibles en <a href="#">GitHub · REKOL08</a></p>
+  <p><strong>Ruta Informacional para la Investigación · Ciencia Abierta</strong> · CINAR · Bibliotecas Areandina · 2026</p>
+  <p style="margin-top:0.4rem;">Contacto: <a href="mailto:alabrada3@areandina.edu.co">alabrada3@areandina.edu.co</a> · Licencias Atlas.ti: <a href="mailto:bibliotecabogota@areandina.edu.co">bibliotecabogota@areandina.edu.co</a> · Recursos en <a href="#">GitHub · REKOL08</a></p>
 </footer>
 
 <script>
@@ -574,7 +729,8 @@ window.addEventListener('load', function () {
     { id: 'qr-doaj', url: 'https://doaj.org' },
     { id: 'qr-publindex', url: 'https://scienti.minciencias.gov.co/publindex/' },
     { id: 'qr-scimago', url: 'https://www.scimagojr.com' },
-    { id: 'qr-orcid', url: 'https://orcid.org/register' }
+    { id: 'qr-orcid', url: 'https://orcid.org/register' },
+    { id: 'qr-gem-publicar', url: 'https://gemini.google.com/gem/1KYxqdq-Dmufav5T_CwIzvcfjYllPZonA?usp=sharing' }
   ];
   qrs.forEach(({ id, url }) => {
     const el = document.getElementById(id);
@@ -596,10 +752,13 @@ const checklist = [
   { t: 'Verifica una revista en DOAJ', d: 'Busca una revista de tu área y confirma que está listada.' },
   { t: 'Consulta la categoría en Publindex', d: 'Revisa la clasificación de una revista colombiana de tu campo.' },
   { t: 'Busca el cuartil en Scimago', d: 'Identifica el Q (Q1–Q4) de tu revista objetivo.' },
-  { t: 'Pregunta por acuerdos transformativos', d: 'Consulta en Biblioteca si tu revista objetivo tiene APC cubierto.' },
-  { t: 'Explora Papyrus', d: 'Ingresa con tu cuenta institucional y recorre la plataforma.' },
+  { t: 'Chatea con el Asistente IA ¿Dónde Publicar?', d: 'Pregúntale si tu revista está cubierta por el Consorcio Colombia.' },
+  { t: 'Esboza el PGD de tu proyecto', d: 'Identifica el tipo de datos, formatos y licencia que usarás.' },
+  { t: 'Explora Papyrus', d: 'Conoce el repositorio de datos donde depositarás tus datasets.' },
+  { t: 'Solicita tu licencia de Atlas.ti', d: 'Si haces análisis cualitativo: regístrate con correo institucional y escribe a la Biblioteca.' },
   { t: 'Crea o actualiza tu ORCID', d: 'Registra tu perfil y agrega tu afiliación a Areandina.' },
-  { t: 'Ingresa al CRIS ADAGIO', d: 'Revisa tu producción registrada y explora los módulos de Ciencia Abierta.' }
+  { t: 'Ingresa al CRIS ADAGIO', d: 'Revisa tu producción registrada y explora los módulos de Ciencia Abierta.' },
+  { t: 'Guarda CINAR en tus favoritos', d: 'El punto de partida único para todos los recursos de investigación.' }
 ];
 
 const grid = document.getElementById('checkGrid');
