@@ -2,7 +2,7 @@
 
 Guía interactiva de la sesión **"Ruta informacional para la investigación: Ciencia Abierta. ¿Dónde publicar? Datos de investigación, mi huella"**, dirigida a docentes e investigadores de la **Fundación Universitaria del Área Andina (Areandina)**.
 
-**🌐 Ver la guía en vivo:** https://rekol08.github.io/ruta-ciencia-abierta/
+**🌐 Ver la guía en vivo:** https://rekol08.github.io/Ruta-informacional-/
 
 > Reemplaza la URL anterior con la que genere GitHub Pages según el nombre final del repositorio.
 
